@@ -43,6 +43,16 @@ const CubeViewer = forwardRef(function CubeViewer({ state }, ref) {
       if (!matCache[key]) matCache[key] = new THREE.MeshStandardMaterial({ color: hex, roughness: rough, metalness: 0.06 });
       return matCache[key];
     };
+    // Çıkartmalar ışıksız çizilir: ekranda görünen renk, açılımdaki hex ile birebir aynı olur.
+    const getFlat = hex => {
+      const key = 'flat' + hex;
+      if (!matCache[key]) {
+        const c = new THREE.Color(hex);
+        if (THREE.sRGBEncoding !== undefined && c.convertSRGBToLinear) c.convertSRGBToLinear();
+        matCache[key] = new THREE.MeshBasicMaterial({ color: c });
+      }
+      return matCache[key];
+    };
     for (let x = -1; x <= 1; x++) for (let y = -1; y <= 1; y++) for (let z = -1; z <= 1; z++) {
       const body = new THREE.Mesh(bodyGeo, getMat('#15171c', 0.5));
       body.position.set(x * SP, y * SP, z * SP);
@@ -52,7 +62,7 @@ const CubeViewer = forwardRef(function CubeViewer({ state }, ref) {
     for (let i = 0; i < 54; i++) {
       const g = faceletGeom(i);
       const hex = st[i] ? COLORS[st[i]] : EMPTY_COLOR;
-      const m = new THREE.Mesh(stickerGeo, getMat(hex, st[i] ? 0.26 : 0.6));
+      const m = new THREE.Mesh(stickerGeo, getFlat(hex));
       const p = new THREE.Vector3(g.pos[0] * SP, g.pos[1] * SP, g.pos[2] * SP);
       const n = new THREE.Vector3(...g.normal);
       m.position.copy(p).add(n.clone().multiplyScalar(0.497));
