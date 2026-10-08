@@ -32,7 +32,7 @@
 .stage-canvas { position: absolute; inset: 0; cursor: grab; touch-action: none; }
 .stage-canvas:active { cursor: grabbing; }
 .stage-shadow {
-  position: absolute; left: 50%; bottom: 12%; width: 46%; height: 26px;
+  position: absolute; left: 50%; bottom: 26%; width: 46%; height: 26px;
   transform: translateX(-50%); border-radius: 50%;
   background: radial-gradient(50% 50% at 50% 50%, rgba(0,0,0,0.55), transparent 70%);
   pointer-events: none;

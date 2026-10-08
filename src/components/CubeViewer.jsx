@@ -66,7 +66,7 @@ const CubeViewer = forwardRef(function CubeViewer({ state }, ref) {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
     camera.position.set(9.2, 7.0, 12.2);
-    camera.lookAt(0, -0.1, 0);
+    camera.lookAt(0, -1.3, 0);
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     if (THREE.sRGBEncoding !== undefined) renderer.outputEncoding = THREE.sRGBEncoding;
